@@ -13,6 +13,7 @@ struct Figura {
     // - debe ser virtual
 
     [[nodiscard]] virtual double area() const = 0;
+    [[nodiscard]] virtual Figura* clone() const = 0;
 };
 
 class Elipse: public Figura {
@@ -22,6 +23,9 @@ public:
     Elipse(const double a, const double b): a(a), b{b} {}
     [[nodiscard]] double area() const override {
         return a * b * std::numbers::pi;
+    }
+    [[nodiscard]] Figura* clone() const override{
+        return new Elipse(a, b);
     }
 };
 
@@ -34,6 +38,9 @@ public:
     [[nodiscard]] double area() const override {
         return width * height;
     }
+    [[nodiscard]] Figura* clone() const override{
+        return new Rectangulo(width, height);
+    }
 };
 
 class Triangulo: public Figura {
@@ -44,6 +51,9 @@ public:
         : width{width}, height{height} {}
     [[nodiscard]] double area() const override {
         return width * height / 2;
+    }
+    [[nodiscard]] Figura* clone() const override{
+        return new Triangulo(width, height);
     }
 };
 
